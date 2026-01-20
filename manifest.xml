@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+           xsi:type="MailApp">
+
+  <Id>53ad0af2-c9d0-4325-b4b6-df699f73e4c4</Id>
+  <Version>1.0.0.1</Version>
+  <ProviderName>Example Company</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="External Recipient Smart Alert"/>
+  <Description DefaultValue="Warns users when sending email to external recipients."/>
+
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
+
+  <Permissions>ReadWriteMailbox</Permissions>
+
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.12"/>
+    </Sets>
+  </Requirements>
+
+  <VersionOverrides xsi:type="mailappor:VersionOverridesV1_1">
+    <Hosts>
+      <Host xsi:type="mailappor:MailHost">
+        <DesktopFormFactor>
+
+          <FunctionFile resid="FunctionFileUrl" />
+
+          <ExtensionPoint xsi:type="mailappor:EventBasedActivation">
+            <Event Type="OnMessageSend"
+                   FunctionName="onMessageSend"
+                   SendMode="PromptUser"/>
+          </ExtensionPoint>
+
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Urls>
+        <bt:Url id="FunctionFileUrl"
+                DefaultValue="https://SteveITWorks.github.io/outlook-addin/function-file.js"/>
+      </bt:Urls>
+
+      <bt:ShortStrings>
+        <bt:String id="FunctionFileName"
+                   DefaultValue="function-file"/>
+      </bt:ShortStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
